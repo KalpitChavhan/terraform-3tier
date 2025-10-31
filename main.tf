@@ -1,11 +1,11 @@
 module "vpc" {
-  source        = "./modules/vpc"
-  name          = "kalpit-3tier"
-  cidr_block    = "10.10.0.0/16"
-  public_subnets  = ["10.10.1.0/24", "10.10.2.0/24"]
-  private_subnets = ["10.10.101.0/24", "10.10.102.0/24"]
+  source             = "./modules/vpc"
+  name               = "kalpit-3tier"
+  cidr_block         = "10.10.0.0/16"
+  public_subnets     = ["10.10.1.0/24", "10.10.2.0/24"]
+  private_subnets    = ["10.10.101.0/24", "10.10.102.0/24"]
   enable_nat_gateway = false
-  aws_region = "ap-south-1"
+  aws_region         = "ap-south-1"
 }
 
 output "vpc_id" {
@@ -27,14 +27,14 @@ locals {
 }
 
 module "ec2" {
-  source                = "./modules/ec2"
-  name                  = "kalpit-3tier"
-  vpc_id                = module.vpc.vpc_id
-  subnet_ids            = module.vpc.public_subnet_ids    # for demo, using public
-  instance_type         = "t2.micro"
-  key_name              = "kalpit-key"                    # replace with your key pair name
-  public_key_path       = "/home/Kalpit/.ssh/id_rsa.pub"
-  user_data             = local.user_data
+  source                  = "./modules/ec2"
+  name                    = "kalpit-3tier"
+  vpc_id                  = module.vpc.vpc_id
+  subnet_ids              = module.vpc.public_subnet_ids # for demo, using public
+  instance_type           = "t2.micro"
+  key_name                = "kalpit-key" # replace with your key pair name
+  public_key_path         = "/home/Kalpit/.ssh/id_rsa.pub"
+  user_data               = local.user_data
   create_in_public_subnet = true
 }
 
@@ -49,8 +49,8 @@ module "rds" {
   private_subnet_ids = module.vpc.private_subnet_ids
   ec2_sg_id          = module.ec2.security_group_id
 
-  db_username        = "admin"
-  db_password        = "Terraform123"   # Simple, clean password — no symbols
+  db_username = "admin"
+  db_password = "Terraform123" # Simple, clean password — no symbols
 }
 
 module "alb" {

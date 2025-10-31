@@ -22,7 +22,7 @@ variable "enable_nat_gateway" {
   description = "Create a NAT Gateway for private subnets (costly)"
   type        = bool
   default     = false
-  
+
 }
 
 variable "aws_region" {

@@ -42,12 +42,12 @@ resource "aws_key_pair" "main" {
 
 # Launch EC2 instance(s)
 resource "aws_instance" "web" {
-  ami                    = "ami-0dee22c13ea7a9a67" # Ubuntu 22.04 in ap-south-1
-  instance_type          = var.instance_type
-  subnet_id              = element(var.subnet_ids, 0)
-  vpc_security_group_ids = [aws_security_group.web_sg.id]
-  key_name               = aws_key_pair.main.key_name
-  user_data              = var.user_data
+  ami                         = "ami-0dee22c13ea7a9a67" # Ubuntu 22.04 in ap-south-1
+  instance_type               = var.instance_type
+  subnet_id                   = element(var.subnet_ids, 0)
+  vpc_security_group_ids      = [aws_security_group.web_sg.id]
+  key_name                    = aws_key_pair.main.key_name
+  user_data                   = var.user_data
   associate_public_ip_address = var.create_in_public_subnet
 
   tags = {
