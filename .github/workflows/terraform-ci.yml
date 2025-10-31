@@ -13,6 +13,10 @@ jobs:
   terraform:
     name: Terraform Validation
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
       - name: Checkout repository
@@ -21,7 +25,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.9.8   # You can adjust to your installed version
+          terraform_version: 1.9.8
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
